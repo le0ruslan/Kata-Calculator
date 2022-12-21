@@ -23,29 +23,36 @@ func main() {
 
 		if len(strSlice) == 1 { // Проверяет введенные данные на соответствие заданию
 			fmt.Println("Ошибка. Cтрока не является математической операцией.")
+			os.Exit(0)
 
 		} else if len(strSlice) == 2 {
 			fmt.Println("Ошибка. Cтрока не является математической операцией.")
+			os.Exit(0)
 
 		} else if len(strSlice) > 3 {
 			fmt.Println("Ошибка. Формат математической операции не удовлетворяет заданию — два операнда и один оператор (+, -, /, *): ")
+			os.Exit(0)
 
 		} else if strings.ContainsAny(strSlice[0], "12345678910") && strings.ContainsAny(strSlice[2], "IVX") || strings.ContainsAny(strSlice[2], "12345678910") && strings.ContainsAny(strSlice[0], "IVX") {
 			fmt.Println("Ошибка. Используются одновременно разные системы исчисления")
+			os.Exit(0)
 
 		} else if strings.ContainsAny(strSlice[0], "12345678910") && strings.ContainsAny(strSlice[2], "12345678910") {
 			a, err := strconv.Atoi(strSlice[0])
 			if err != nil {
-				fmt.Println("Ошибка преобразования первого числа: ", err)
+				fmt.Println("Калькулятор умеет работать только с целыми числами. Ошибка преобразования первого числа: ", err)
+				os.Exit(0)
 			}
 
 			b, err := strconv.Atoi(strSlice[2])
 			if err != nil {
-				fmt.Println("Ошибка преобразования второго числа: ", err)
+				fmt.Println("Калькулятор умеет работать только с целыми числами. Ошибка преобразования первого числа: ", err)
+				os.Exit(0)
 			}
 
 			if a > 10 || b > 10 || a < 1 || b < 1 {
 				fmt.Println("Ошибка. Числа не удавлетворяют диапазону от 1 до 10")
+				os.Exit(0)
 			} else {
 
 				fmt.Println(Arabic(a, b, strSlice[1]))
@@ -55,6 +62,7 @@ func main() {
 
 			if Decode(strSlice[0]) < Decode(strSlice[2]) || strings.ContainsAny(strSlice[0], "-") || strings.ContainsAny(strSlice[2], "-") {
 				fmt.Println("Ошибка. В римской системе исчисления нет отрицательных чисел")
+				os.Exit(0)
 
 			} else {
 				fmt.Println(Encode(Arabic(Decode(strSlice[0]), Decode(strSlice[2]), strSlice[1])))
